@@ -1,12 +1,36 @@
 package spring_introduction;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+
 import java.io.PrintStream;
 
+//@Component("personBean")
 public class Person {
-
+//    @Autowired
+//    @Qualifier("dogBean")
     private Pet pet;
+    @Value("${person.surname}")
     private String surname;
+    @Value("${person.age}")
     private int age;
+
+    public Person() {
+        System.out.println("Person bean is created (first constructor)");
+    }
+
+//    @Autowired
+//    public Person(@Qualifier("dogBean") Pet pet) {
+//        this.pet = pet;
+//        System.out.println("Person bean is created (second constructor)");
+//    }
+
+        public Person( Pet pet) {
+        this.pet = pet;
+        System.out.println("Person bean is created (second constructor)");
+    }
 
     public String getSurname() {
         return surname;
@@ -26,19 +50,13 @@ public class Person {
         this.age = age;
     }
 
-    public Person() {
-        System.out.println("Person bean is created (first constructor)");
-    }
 
-    public Person(Pet pet) {
-        this.pet = pet;
-        System.out.println("Person bean is created (second constructor)");
-    }
 
     public Pet getPet() {
         return pet;
     }
 
+//    @Autowired
     public void setPet(Pet pet) {
         System.out.println("Class Person: set pet");
         this.pet = pet;
