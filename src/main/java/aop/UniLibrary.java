@@ -16,24 +16,29 @@ public class UniLibrary extends AbstractLibrary{
 //        System.out.println("we take the book from university: " + bookName.getName());
 //    }
 
-    public void returnBook(){
+    public String returnBook(){
+//        int s = 10/0;
         System.out.println("we return book at university");
+        return "War and Peace.";
     }
 
     public void getMagazine(){
         System.out.println("we take the magazine from university");
+        System.out.println("------------------------------------------------------------");
     }
 
     public void returnMagazine(){
         System.out.println("we return magazine at university");
+        System.out.println("------------------------------------------------------------");
     }
 
-    public void addBook(){
+    public void addBook(String person_name, Book book){
         System.out.println(" we add book at university");
+        System.out.println("------------------------------------------------------------");
     }
 
     public void addMagazine(){
-        System.out.println(" we add magazine at university");
+        System.out.println("------------------------------------------------------------");
     }
 
 }

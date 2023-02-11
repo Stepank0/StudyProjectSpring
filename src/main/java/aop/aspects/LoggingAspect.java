@@ -1,7 +1,10 @@
 package aop.aspects;
 
+import aop.Book;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -60,11 +63,38 @@ public class LoggingAspect {
 //    @Pointcut("execution(* get*())") // 2.5
 //    private void allGetMethods(){}
 
-    @Before("aop.aspects.MyPointcuts.allGetMethods()") // 2.5
-    public void beforeGetLoggingAdvice(){
-        System.out.println("beforeGetLoggingAdvice: logging attempts to" +
+    @Before("aop.aspects.MyPointcuts.allAddMethods()") // 2.5
+    public void beforeAddLoggingAdvice(JoinPoint joinPoint){
+        MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        System.out.println("methodSignature " + methodSignature);
+        System.out.println("methodSignature.getMethod() " + methodSignature.getMethod());
+        System.out.println("methodSignature.getReturnType() " + methodSignature.getReturnType());
+        System.out.println("methodSignature.getName() " + methodSignature.getName());
+
+        if(methodSignature.getName().equals("addBook")){
+            Object[] arg = joinPoint.getArgs();
+            for(Object obj : arg){
+                if(obj instanceof Book){
+                    Book book = (Book) obj;
+                    System.out.println(" Information about book - " +
+                            book.getName() + " author: " + book.getAuthor() +
+                            " years of publication: " + book.getYearOfPublication());
+                } else if (obj instanceof  String) {
+                    System.out.println(" book add in library is " + obj);
+                }
+            }
+        }
+        System.out.println("beforeAddLoggingAdvice: logging attempts to" +
                 " trying to take a book or magazine");
+        System.out.println("------------------------------------------------------------");
+
+
+
+
+
     }
+
+
 
 //    @Before("allGetMethods()") // 2.5
 //    public void beforeGetSecurityAdvice(){
